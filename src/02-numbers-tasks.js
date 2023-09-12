@@ -51,8 +51,8 @@ function getCircleCircumference(radius) {
  *  10, 0  => 5
  *  -3, 3  => 0
  */
-function getAverage(value1, value2) {
-  return (value1 + value2) / 2;
+function getAverage(/* value1, value2 */) {
+  throw new Error('Not implemented');
 }
 
 /**
@@ -111,12 +111,12 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (0,1)     => 0
  *   (0,1) (1,2)     => 0
  */
-function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
+function getAngleBetweenVectors(x1, y1, x2, y2) {
   const dotProduct = x1 * x2 + y1 * y2;
   const magnitude1 = Math.sqrt(x1 * x1 + y1 * y1);
   const magnitude2 = Math.sqrt(x2 * x2 + y2 * y2);
   if (magnitude1 === 0 || magnitude2 === 0) {
-    throw new Error("The magnitude of one of the vectors is zero.");
+    throw new Error('The magnitude of one of the vectors is zero.');
   }
   const cosine = dotProduct / (magnitude1 * magnitude2);
   const validCosine = Math.max(-1, Math.min(1, cosine));
@@ -151,7 +151,7 @@ function getLastDigit(value) {
  *     '37'     => 37
  * '-525.5'     => -525.5
  */
-function parseNumberFromString(/* value */) {
+function parseNumberFromString(value) {
   return parseFloat(value);
 }
 
@@ -191,7 +191,7 @@ function getParallelepipedDiagonal(a, b, c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-  return Math.round( num / (10 ** pow)) * (10 ** pow);
+  return Math.round(num / (10 ** pow)) * (10 ** pow);
 }
 
 /**
@@ -215,10 +215,18 @@ function isPrime(n) {
   if (n <= 1) {
     return false;
   }
-  for (let i = 2; i <= n; i++) {
-    if (n % i === 0) {
+  if (n <= 3) {
+    return true;
+  }
+  if (n % 2 === 0 || n % 3 === 0) {
+    return false;
+  }
+  let i = 5;
+  while (i * i <= n) {
+    if (n % i === 0 || n % (i + 2) === 0) {
       return false;
     }
+    i += 6;
   }
   return true;
 }
@@ -238,9 +246,9 @@ function isPrime(n) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-function toNumber(/* value, def */) {
+function toNumber(value, def) {
   const parsedValue = parseFloat(value);
-  if (!isNaN(parsedValue)) {
+  if (!Number.isNaN(parsedValue)) {
     return parsedValue;
   }
   return def;

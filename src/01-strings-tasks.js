@@ -67,8 +67,9 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-  const greeting = `Hello, ${value}!`;
-  return greeting;
+  const parts = value.split(/,|!/);
+  const name = parts[1].trim();
+  return name;
 }
 
 
@@ -98,7 +99,7 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-  return value.trim;
+  return value.trim();
 }
 
 /**
